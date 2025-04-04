@@ -1,14 +1,18 @@
-const { ethers } = require('hardhat');
+require("dotenv").config({ path: '../.env' });
+
+const { ethers } = require("hardhat");
 
 async function main() {
-    const VRFStorage = await ethers.getContractFactory('VRFStorage');
-    const contract = await VRFStorage.deploy();
-    await contract.deployed();
-    
-    console.log('Contract deployed at:', contract.address);
+    const ContractFactory = await ethers.getContractFactory("VRFStorage"); // Correct contract name
+    const contract = await ContractFactory.deploy(); // Deploy contract
+
+    console.log("Contract deployed to:", await contract.getAddress()); // Use getAddress() in Ethers v6
 }
 
-main().catch((error) => {
+main()
+  .then(() => process.exit(0))
+  .catch((error) => {
     console.error(error);
-    process.exitCode = 1;
-});
+    process.exit(1);
+  });
+

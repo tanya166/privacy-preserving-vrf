@@ -18,3 +18,4 @@ contract VRFStorage {
         return storedFingerprints[segmentHash] == claimedFingerprint;
     }
 }
+

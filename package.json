@@ -1,7 +1,19 @@
 {
   "name": "hardhat-project",
   "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
-    "hardhat": "^2.22.18"
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.8",
+    "@nomicfoundation/hardhat-ethers": "^3.0.8",
+    "@nomiclabs/hardhat-etherscan": "^3.1.8",
+    "ethers": "^6.13.5",
+    "hardhat": "^2.22.18",
+    "mocha": "^11.1.0"
+  },
+  "dependencies": {
+    "chai": "^4.3.8",
+    "chai-http": "^4.3.0",
+    "dotenv": "^16.4.7",
+    "hardhat-waffle": "^0.0.1-security",
+    "node-cron": "^3.0.3",
+    "pg": "^8.13.3"
   }
 }

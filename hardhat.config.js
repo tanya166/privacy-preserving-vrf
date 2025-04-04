@@ -1,15 +1,26 @@
-require('@nomiclabs/hardhat-ethers');
-require('@nomiclabs/hardhat-etherscan');
+require("@nomicfoundation/hardhat-toolbox");
+require("@nomicfoundation/hardhat-chai-matchers"); // ✅ Add this
+require("dotenv").config();
+
+require("dotenv").config();
+
+console.log("Alchemy API Key:", process.env.ALCHEMY_API_KEY);
+console.log("Private Key Loaded:", process.env.PRIVATE_KEY ? "Yes" : "No");
 
 module.exports = {
-  solidity: "0.8.0",  // Adjust to the version you're using
   networks: {
-    mumbai: {
-      url: `https://polygon-mumbai.g.alchemy.com/v2/YOUR_ALCHEMY_API_KEY`,  // Replace with your Alchemy URL
-      accounts: [`0x${YOUR_PRIVATE_KEY}`]  // Replace with your wallet's private key
-    }
+    sepolia: {
+      url: `https://eth-sepolia.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
+      accounts: [`0x${process.env.PRIVATE_KEY}`],  
+    },
   },
-  etherscan: {
-    apiKey: 'YOUR_ETHERSCAN_API_KEY'  // Optional if you want to verify contracts
+  solidity: "0.8.28",
+  paths: {
+    sources: "./contracts",   // Ensures contracts are in the correct location
+    cache: "./cache",
+    artifacts: "./artifacts"  // Ensures compiled contracts go to artifacts/
   }
 };
+
+
+
