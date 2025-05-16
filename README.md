@@ -12,59 +12,74 @@ We use **Verifiable Random Functions (VRFs)** to create cryptographic fingerprin
 
 ---
 
-## Steps to Use
+## How to Use This Tool
+
+This tool helps you **generate, store, and selectively verify VRF fingerprints** for time-series data while preserving privacy.
 
 ### 1️⃣ Clone the Repo
 ```bash
 git clone https://github.com/your-username/vrf-blockchain-tool.git
 cd vrf-blockchain-tool
-2️⃣ Install Dependencies
+```
+### 2️⃣ Install Dependencies
 
 npm install
-3️⃣ Set Up Environment Variables
+
+### 3️⃣ Set Up Environment Variables
 Create a .env file in the root folder and add your config:
 
 VRF_SECRET_KEY=your_private_key
-DATABASE_URL=your_postgres_connection_string
-4️⃣ Generate VRF Keys
-Run the key generation script (or use the included logic in your main script) to create a VRF key pair:
+DATABASE_URL=your_postgres_connection
+INFURA_API_KEY=your_infura_key
+WALLET_PRIVATE_KEY=your_wallet_key
+CONTRACT_ADDRESS=deployed_smart_contract_address
 
-Store the secret key in .env.
+---
 
-Keep the public key for verification purposes.
+### Step 4: Generate VRF Key Pair
 
-5️⃣ Process and Store Fingerprints
-Use the fingerprinting module/script to:
+Generate a public and secret key pair for cryptographic hashing.
+```bash
+node vrfKeyGen.js
+```
+The secret key will be saved securely in your .env file.
 
-Read raw time-series data (e.g., temperature logs),
+### Step 5: Process Data & Store Fingerprints
 
-Generate a VRF fingerprint and segment hash for each entry,
+Process your raw time-series data (e.g., temperature logs) to create VRF fingerprints and segment hashes, then store them in PostgreSQL.
 
-Store them in the PostgreSQL database.
+```bash
+node processAndStore.js
+```
+### Step 6: Deploy Smart Contract (Optional)
+Deploy the smart contract to the Sepolia Ethereum testnet to enable on-chain storage of VRF fingerprints.
 
-🔸 This is the core part of the tool. You’re building verifiable proof without saving actual data.
+```bash
+npx hardhat run scripts/deploy.js --network sepolia
 
-6️⃣ (Optional) Store Fingerprints on Blockchain
-If you’ve deployed your smart contract to the Sepolia Ethereum Testnet, you can manually send selected fingerprints to the blockchain:
+```
 
-Open Hardhat console:
+### Step 7: Send Fingerprints to Blockchain (Optional)
+Send the stored fingerprints from PostgreSQL to the deployed smart contract on Ethereum.
 
-npx hardhat console --network sepolia
-Call the contract’s function:
 
-const contract = await ethers.getContractAt("YourContract", "0xYourContractAddress");
-await contract.storeFingerprint("0xFINGERPRINT_HASH");
-❗ You’ll need to manually interact with the smart contract.
+- Reads VRF fingerprints stored in PostgreSQL.
+- Sends them to the deployed smart contract on Sepolia Testnet automatically.
+  
+```bash
 
-7️⃣ Selective Verification (Manual)
-To verify a claim like “temperature > 30°C”:
+```bash
+node interact.js
+```
+### Step 8: Selective Verification (Manual)
+To prove claims like “at least one temperature reading > 30°C” without revealing full data:
 
-Filter the original data manually.
+Filter your original dataset manually for entries that satisfy the claim.
 
-Recompute fingerprints for those filtered entries using the VRF logic.
+Recompute VRF fingerprints for these entries locally using your VRF secret key.
 
-Share only the matching fingerprints and hashes.
+Share only those matching fingerprints to prove the claim while keeping raw data private.
 
-🔸 This step must be done manually for now.
+
 
 
