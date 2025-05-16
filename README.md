@@ -11,10 +11,17 @@ We are building a **Prototype Tool** that:
 We use **Verifiable Random Functions (VRFs)** to create cryptographic fingerprints of time-series data. These fingerprints allow third parties to verify claims about the data without accessing the original records — enabling privacy and transparency.
 
 ---
+## Tech stack:
+```
+
+Node.js,PostgreSQL,Ethereum (Sepolia Testnet) ,Solidity ,Hardhat, Ethers.js
+
+```
 
 ## How to Use This Tool
 
 This tool helps you **generate, store, and selectively verify VRF fingerprints** for time-series data while preserving privacy.
+
 
 ### 1️⃣ Clone the Repo
 ```bash
