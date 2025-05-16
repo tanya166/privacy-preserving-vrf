@@ -28,13 +28,13 @@ npm install
 ### 3️⃣ Set Up Environment Variables
 Create a .env file in the root folder and add your config:
 
+```
 VRF_SECRET_KEY=your_private_key
 DATABASE_URL=your_postgres_connection
 INFURA_API_KEY=your_infura_key
 WALLET_PRIVATE_KEY=your_wallet_key
 CONTRACT_ADDRESS=deployed_smart_contract_address
-
----
+```
 
 ### Step 4: Generate VRF Key Pair
 
@@ -68,17 +68,16 @@ Send the stored fingerprints from PostgreSQL to the deployed smart contract on E
   
 ```bash
 
-```bash
 node interact.js
 ```
 ### Step 8: Selective Verification (Manual)
 To prove claims like “at least one temperature reading > 30°C” without revealing full data:
 
-Filter your original dataset manually for entries that satisfy the claim.
+- Filter your original dataset manually for entries that satisfy the claim.
 
-Recompute VRF fingerprints for these entries locally using your VRF secret key.
+- Recompute VRF fingerprints for these entries locally using your VRF secret key.
 
-Share only those matching fingerprints to prove the claim while keeping raw data private.
+- Share only those matching fingerprints to prove the claim while keeping raw data private.
 
 
 
