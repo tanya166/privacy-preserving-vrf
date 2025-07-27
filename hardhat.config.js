@@ -1,7 +1,5 @@
 require("@nomicfoundation/hardhat-toolbox");
-require("@nomicfoundation/hardhat-chai-matchers"); // ✅ Add this
-require("dotenv").config();
-
+require("@nomicfoundation/hardhat-chai-matchers"); 
 require("dotenv").config();
 
 console.log("Alchemy API Key:", process.env.ALCHEMY_API_KEY);
@@ -16,9 +14,9 @@ module.exports = {
   },
   solidity: "0.8.28",
   paths: {
-    sources: "./contracts",   // Ensures contracts are in the correct location
+    sources: "./contracts",   
     cache: "./cache",
-    artifacts: "./artifacts"  // Ensures compiled contracts go to artifacts/
+    artifacts: "./artifacts"  
   }
 };
 

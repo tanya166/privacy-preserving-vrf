@@ -1,12 +1,11 @@
-require("dotenv").config({ path: '../.env' });
-
+require("dotenv").config({ path: './.env' });
 const { ethers } = require("hardhat");
 
 async function main() {
-    const ContractFactory = await ethers.getContractFactory("VRFStorage"); // Correct contract name
-    const contract = await ContractFactory.deploy(); // Deploy contract
+    const ContractFactory = await ethers.getContractFactory("VRFStorage"); 
+    const contract = await ContractFactory.deploy();
 
-    console.log("Contract deployed to:", await contract.getAddress()); // Use getAddress() in Ethers v6
+    console.log("Contract deployed to:", await contract.getAddress());
 }
 
 main()

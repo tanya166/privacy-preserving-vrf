@@ -1,13 +1,13 @@
 const chai = require("chai");
 const chaiHttp = require("chai-http");
-const server = require("../backend/server"); // Updated to use the correct server instance
+const server = require("../backend/server"); 
 
 chai.use(chaiHttp);
 const { expect } = chai;
 
 describe("API Tests", () => {
     it("Should store and retrieve VRF fingerprint", (done) => {
-        chai.request(server) // Updated to use the correct server instance
+        chai.request(server) 
             .post("/process-data")
             .send({ segmentData: { temperature: 26.5, humidity: 80 } })
             .end((err, res) => {
@@ -21,7 +21,7 @@ describe("API Tests", () => {
     });
 
     it("Should verify a stored fingerprint", (done) => {
-        chai.request(server) // Updated to use the correct server instance
+        chai.request(server) 
             .get("/verify?segmentHash=segment1")
             .end((err, res) => {
                 expect(res).to.have.status(200);
