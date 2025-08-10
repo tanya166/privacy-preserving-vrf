@@ -10,13 +10,17 @@
     "mocha": "^11.1.0"
   },
   "dependencies": {
+    "axios": "^1.11.0",
+    "busboy": "^1.6.0",
     "chai": "^4.3.8",
     "chai-http": "^4.3.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.6.1",
     "express": "^5.1.0",
     "hardhat-waffle": "^0.0.1-security",
     "multer": "^2.0.2",
     "node-cron": "^3.0.3",
-    "pg": "^8.16.3"
+    "pg": "^8.16.3",
+    "solc": "^0.8.30"
   }
 }
