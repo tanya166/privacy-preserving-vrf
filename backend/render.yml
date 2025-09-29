@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: vrf-blockchain-api
+    env: node
+    buildCommand: npm install
+    startCommand: node api.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
