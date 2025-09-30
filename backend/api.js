@@ -49,7 +49,7 @@ function encryptKey(privateKey, contractAddress) {
     const ivSource = crypto.createHash('sha256').update(privateKey + contractAddress).digest();
     const iv = ivSource.slice(0, 16);
     
-    const cipher = crypto.createCipher('aes-256-cbc', derivedKey);
+    const cipher = crypto.createCipheriv('aes-256-cbc', derivedKey , iv);
     cipher.setAutoPadding(true);
     
     let encrypted = cipher.update(privateKey, 'utf8', 'hex');
@@ -73,7 +73,7 @@ function decryptKey(encryptedData, contractAddress) {
     const keyMaterial = contractAddress + KEY_DERIVATION_SALT;
     const derivedKey = crypto.createHash('sha256').update(keyMaterial).digest();
     
-    const decipher = crypto.createDecipher('aes-256-cbc', derivedKey);
+    const decipher = crypto.createDecipheriv('aes-256-cbc', derivedKey,iv);
     decipher.setAutoPadding(true);
     
     let decrypted = decipher.update(encryptedHex, 'hex', 'utf8');
