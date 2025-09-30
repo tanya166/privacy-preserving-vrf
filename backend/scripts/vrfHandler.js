@@ -1,4 +1,4 @@
-// require("dotenv").config({ path: "../.env" });
+
 require("dotenv").config({ path: '../../.env' });
 const { Wallet, keccak256, toUtf8Bytes } = require("ethers");
 const { getBytes } = require("ethers");
@@ -17,7 +17,7 @@ function encryptKey(privateKey, contractAddress) {
     const ivSource = crypto.createHash('sha256').update(privateKey + contractAddress).digest();
     const iv = ivSource.slice(0, 16);
     
-    const cipher = crypto.createCipher('aes-256-cbc', derivedKey);
+    const cipher = crypto.createCipheriv('aes-256-cbc', derivedKey , iv);
     cipher.setAutoPadding(true);
     
     let encrypted = cipher.update(privateKey, 'utf8', 'hex');
@@ -29,7 +29,6 @@ function encryptKey(privateKey, contractAddress) {
   }
 }
 
-// Deterministic decryption
 function decryptKey(encryptedData, contractAddress) {
   try {
     const [ivHex, encryptedHex] = encryptedData.split(':');
@@ -37,11 +36,13 @@ function decryptKey(encryptedData, contractAddress) {
     if (!ivHex || !encryptedHex) {
       throw new Error('Invalid encrypted data format');
     }
+
+    const iv = Buffer.from(ivHex, 'hex'); // <-- fix here
     
     const keyMaterial = contractAddress + KEY_DERIVATION_SALT;
     const derivedKey = crypto.createHash('sha256').update(keyMaterial).digest();
     
-    const decipher = crypto.createDecipher('aes-256-cbc', derivedKey);
+    const decipher = crypto.createDecipheriv('aes-256-cbc', derivedKey, iv);
     decipher.setAutoPadding(true);
     
     let decrypted = decipher.update(encryptedHex, 'hex', 'utf8');
@@ -53,7 +54,6 @@ function decryptKey(encryptedData, contractAddress) {
   }
 }
 
-// Standardize data format for consistent fingerprint generation
 function standardizeDataForFingerprint(inputData) {
   let standardizedData;
   
