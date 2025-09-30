@@ -19,7 +19,7 @@ app.use(cors({
     'http://localhost:5173',
     'http://127.0.0.1:5173',
     'http://localhost:3000',
-    'privacy-preserving-vrf.vercel.app',
+    'https://privacy-preserving-vrf.vercel.app',
     'http://localhost:3001'
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],

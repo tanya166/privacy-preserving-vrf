@@ -14,8 +14,7 @@ const App = () => {
   const [alerts, setAlerts] = useState([]);
   const [activeTab, setActiveTab] = useState('store'); // 'store' or 'verify'
 
-  // API base URL - adjust this to your backend URL
-  const API_BASE = 'http://localhost:3000';
+  const API_BASE = 'https://vrf-backend.onrender.com';
 
   // Helper function to add alerts
   const addAlert = (message, type = 'info') => {
