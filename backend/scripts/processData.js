@@ -38,7 +38,6 @@ function loadDataFromFile(filePath) {
     }
 }
 
-// NEW: Process data using user-provided VRF key for storage
 async function processDataWithUserKey(dataSegments, contractAddress, privateKey, rpcUrl, userVrfPrivateKey) {
     console.log('🔄 Processing data with USER-PROVIDED VRF key...');
     console.log('🔑 User VRF key will be used for fingerprint generation');
@@ -58,7 +57,6 @@ async function processDataWithUserKey(dataSegments, contractAddress, privateKey,
         console.log(`\n🔐 Processing segment ${i + 1}/${dataSegments.length} with USER VRF key:`, segment);
 
         try {
-            // STEP 1: Generate VRF using USER-PROVIDED private key
             const vrfResult = await vrfHandler.generateVRFWithKey(segment, userVrfPrivateKey);
             
             const { 
@@ -79,11 +77,9 @@ async function processDataWithUserKey(dataSegments, contractAddress, privateKey,
                 userKeyUsed: true
             });
 
-            // STEP 2: Hash fingerprint for blockchain storage
             const hashedFingerprint = ethers.keccak256(fingerprint);
             console.log(`🔨 Hashed fingerprint for blockchain: ${hashedFingerprint}`);
 
-            // STEP 3: Check for duplicates
             const existing = await pool.query(
                 'SELECT * FROM time_series_vrf WHERE segment_hash = $1',
                 [segmentHash]

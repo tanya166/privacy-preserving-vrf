@@ -72,7 +72,7 @@ function decryptKey(encryptedData, contractAddress) {
     
     const keyMaterial = contractAddress + KEY_DERIVATION_SALT;
     const derivedKey = crypto.createHash('sha256').update(keyMaterial).digest();
-    
+    const iv = Buffer.from(ivHex, 'hex'); 
     const decipher = crypto.createDecipheriv('aes-256-cbc', derivedKey,iv);
     decipher.setAutoPadding(true);
     

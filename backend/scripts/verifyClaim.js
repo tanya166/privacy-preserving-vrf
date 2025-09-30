@@ -2,10 +2,10 @@ require('dotenv').config({ path: '../.env' });
 const vrfHandler = require('./vrfHandler');
 const { ethers } = require('ethers');
 
-// ✅ FIX: Import the compilation function to get correct ABI
+
 const { compileSolidityContract } = require('./path/to/your/deploy.js'); // Update this path
 
-// ✅ FIX: Get the correct ABI dynamically
+
 function getContractABI() {
     try {
         const compilationResult = compileSolidityContract();
@@ -35,7 +35,6 @@ async function initializeContract(contractAddress, privateKey, rpcUrl) {
 }
 
 /**
- * FIXED: Verify data integrity using stored VRF key from vrf_keys table
  * @param {string} name - The name field entered by user
  * @param {string|number} value - The value field entered by user
  * @param {string} contractAddress - Smart contract address to retrieve key from vrf_keys table

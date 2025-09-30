@@ -16,7 +16,6 @@ function encryptKey(privateKey, contractAddress) {
     
     const ivSource = crypto.createHash('sha256').update(privateKey + contractAddress).digest();
     const iv = ivSource.slice(0, 16);
-    
     const cipher = crypto.createCipheriv('aes-256-cbc', derivedKey , iv);
     cipher.setAutoPadding(true);
     
@@ -37,7 +36,7 @@ function decryptKey(encryptedData, contractAddress) {
       throw new Error('Invalid encrypted data format');
     }
 
-    const iv = Buffer.from(ivHex, 'hex'); // <-- fix here
+    const iv = Buffer.from(ivHex, 'hex'); 
     
     const keyMaterial = contractAddress + KEY_DERIVATION_SALT;
     const derivedKey = crypto.createHash('sha256').update(keyMaterial).digest();
